@@ -24,6 +24,7 @@ class Master extends Controller
                 {
                     case 'action';
                         $res = $this->getConfigProjectActionIdByActionName($data);
+                        error_log('action name: '.print_r($res, 1));
                         $response = $this->getActionTemplate($res->ConfigID);
 
                         error_log('data from website: '.print_r($response, 1));
@@ -44,7 +45,8 @@ class Master extends Controller
         $data->procedure = __FUNCTION__;
         $data->params->name = $input->actionName;
         $data->params->projectId = $input->projectId;
-        $res = json_decode(API_model::doAPI($data));
+        $res = json_decode(ApiModel::doAPI($data));
+        error_log('getConfigProjectActionIdByActionName: '.print_r($res, 1));
         if(isset($res[0]) && $res[0]->code == '6000'){
             return $res[0];
         }
@@ -58,7 +60,7 @@ class Master extends Controller
         $data->connection = 'TEMPLATE';
         $data->procedure = __FUNCTION__;
         $data->params->name = $input;
-        $res = json_decode(API_model::doAPI($data));
+        $res = json_decode(ApiModel::doAPI($data));
         if(isset($res[0]) && $res[0]->code == '6000'){
             return $res[0]->template;
         }

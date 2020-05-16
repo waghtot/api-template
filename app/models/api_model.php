@@ -1,8 +1,9 @@
 <?php
-class API_model extends Controller
+class ApiModel extends Controller
 {
     public function doAPI($data)
     {
+        error_log('in ApiModel: '.print_r($data, 1));
         $api = PREFIX.$data->api.DNS;
         unset($data->api);
         $postData = json_encode($data);
